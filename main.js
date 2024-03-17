@@ -8,7 +8,7 @@ let num2 = ""
 let op = ""
 let operation_exp = ""
 for (button of numbers_buttons){
-    let unique_buttons = ["=", "C", "MC", "."]
+    let unique_buttons = ["=", "C", "AC", "+/-", "INS", "."]
     if (!isNaN(button.textContent)){
         button.classList.add('numbers')
     }
@@ -56,6 +56,9 @@ window.addEventListener('click', (event)=>{
         operation_exp += "."
     }
     else if (event.target.textContent == "C"){
+        back_del()
+    }
+    else if (event.target.textContent == "AC"){
         num = num1 = op = operation_exp = screen.textContent = ""
         culc_state(false, "1")
         document.body.style.backgroundImage = ""
@@ -72,6 +75,9 @@ function apply_operator(num1,operator,num2){
 function culc_state(disabled,opacity){
     all_btns.forEach(btn => {
         if (btn.className != "clearBtn"){
+            if (btn.textContent == "+/-" || btn.textContent == "INS"){
+                pass
+            }
             btn.disabled = disabled
             btn.style.opacity = opacity
         }
@@ -82,6 +88,18 @@ function op_state(boolean){
     operations_btns.forEach(btn => {
         btn.disabled = boolean
     });
+}
+function back_del(){
+    if (num.toString().length>1){
+        let new_num = num.toString().split("") 
+        new_num.pop()
+        num = new_num.join("")
+        screen.textContent = num
+        operation_exp = num
+    }
+    else{
+        operation_exp = num = "0"
+    }
 }
 all_btns.forEach(btn => {
     btn.addEventListener('click', (event)=>{
@@ -95,12 +113,8 @@ all_btns.forEach(btn => {
     })
 });
 window.addEventListener('keydown', (event)=>{
-	if (event.key == "Backspace" && num.toString().length>1){
-        let new_num = num.toString().split("") 
-        new_num.pop()
-        num = new_num.join("")
-        screen.textContent = num
-        operation_exp = num
+    if(event.key == "Backspace"){
+        back_del()
     }
     else if (event.key == "Enter"){
         

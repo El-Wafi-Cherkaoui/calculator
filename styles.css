@@ -57,7 +57,8 @@ body{
 .row{
     width: 100%;
     display: flex;
-    gap: 1vw;
+    gap: .4vw;
+    justify-content: end;
 }
 button{
     width: 25%;
