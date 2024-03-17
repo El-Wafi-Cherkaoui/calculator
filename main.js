@@ -17,27 +17,23 @@ for (button of numbers_buttons){
         button.classList.add('operations')
     }
 }
+op_state(true)
 window.addEventListener('click', (event)=>{
     if (event.target.className == "numbers"){
         num += event.target.textContent
         operation_exp += event.target.textContent
+        if (!num1) op_state(false)
     }
     else if (event.target.className == "operations"){
         op = event.target.textContent
         operation_exp += op
         num1 = num
         num = ""
-        let operations_btns = document.querySelectorAll('.operations')
-        operations_btns.forEach(btn => {
-            btn.disabled = true
-        });
+        op_state(true)
     }
     else if (event.target.className == "equal"){
         if (num!="" && num1!=""){
-            let operations_btns = document.querySelectorAll('.operations')
-                operations_btns.forEach(btn => {
-                    btn.disabled = false
-            });
+            op_state(false)
             if (num == "0"){
                 operation_exp = "seriously BROKIE !"  
                 num = num1 = 0
@@ -49,7 +45,7 @@ window.addEventListener('click', (event)=>{
             else{
                 let result = apply_operator(Number(num1),op,Number(num))
                 operation_exp = result.toFixed(2)
-                num = result
+                num = result.toFixed(2)
                 num1 = ""
                 // operation_exp = num
             }   
@@ -81,6 +77,12 @@ function culc_state(disabled,opacity){
         }
     });
 }
+function op_state(boolean){
+    let operations_btns = document.querySelectorAll('.operations')
+    operations_btns.forEach(btn => {
+        btn.disabled = boolean
+    });
+}
 all_btns.forEach(btn => {
     btn.addEventListener('click', (event)=>{
         if (event.target.className == "equal" ||
@@ -92,3 +94,15 @@ all_btns.forEach(btn => {
         }
     })
 });
+window.addEventListener('keydown', (event)=>{
+	if (event.key == "Backspace" && num.toString().length>1){
+        let new_num = num.toString().split("") 
+        new_num.pop()
+        num = new_num.join("")
+        screen.textContent = num
+        operation_exp = num
+    }
+    else if (event.key == "Enter"){
+        
+    }
+})
