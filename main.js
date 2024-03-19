@@ -8,7 +8,7 @@ let num2 = ""
 let op = ""
 let operation_exp = ""
 for (button of numbers_buttons){
-    let unique_buttons = ["=", "C", "AC", "+/-", "INS", "."]
+    let unique_buttons = ["=", "C", "AC", "+/-", "^^", "."]
     if (!isNaN(button.textContent)){
         button.classList.add('numbers')
     }
@@ -71,6 +71,7 @@ function apply_operator(num1,operator,num2){
     else if (operator == "-") return num1 - num2
     else if (operator == "x") return num1 * num2
     else if (operator == "/") return num1 / num2
+    else if (operator == "^") return num1 ** num2
 }
 function culc_state(disabled,opacity){
     all_btns.forEach(btn => {
