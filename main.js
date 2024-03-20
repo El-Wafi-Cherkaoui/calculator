@@ -61,6 +61,7 @@ window.addEventListener('click', (event)=>{
     else if (event.target.textContent == "AC"){
         num = num1 = op = operation_exp = screen.textContent = ""
         culc_state(false, "1")
+        op_state(true)
         document.body.style.backgroundImage = ""
     }
     if (num!==""|| num1!=="")screen.textContent = operation_exp
@@ -77,7 +78,7 @@ function culc_state(disabled,opacity){
     all_btns.forEach(btn => {
         if (btn.className != "clearBtn"){
             if (btn.textContent == "+/-" || btn.textContent == "INS"){
-                pass
+                console.log("s")
             }
             btn.disabled = disabled
             btn.style.opacity = opacity
